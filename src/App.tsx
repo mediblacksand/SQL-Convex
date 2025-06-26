@@ -14,8 +14,8 @@ function App() {
       const result = db.exec('SELECT title, director, year FROM movies LIMIT 5');
       if (result.length > 0) {
         const { columns, values } = result[0];
-        return values.map(row => 
-          Object.fromEntries(columns.map((col, i) => [col, row[i]]))
+        return values.map((row: any) => 
+          Object.fromEntries(columns.map((col: any, i: number) => [col, row[i]]))
         );
       }
     } catch (err) {
@@ -262,7 +262,7 @@ function App() {
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {sampleMovies.map((movie, index) => (
+                    {sampleMovies.map((movie: any, index: number) => (
                       <tr key={index} className="hover:bg-gray-50">
                         <td className="px-4 py-2 text-sm text-gray-900">{movie.title}</td>
                         <td className="px-4 py-2 text-sm text-gray-600">{movie.director}</td>

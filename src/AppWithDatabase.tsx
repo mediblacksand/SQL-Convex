@@ -1,4 +1,4 @@
-import React from 'react';
+// Remove unused React import
 import { ErrorBoundary } from './components/ui';
 import { DatabaseTest } from './components/DatabaseTest';
 
