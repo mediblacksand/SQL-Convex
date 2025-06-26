@@ -1,7 +1,29 @@
 import { ErrorBoundary, LoadingSpinner } from './components/ui';
-import { BookOpen, Database, Code } from 'lucide-react';
+import { BookOpen, Database, Code, AlertCircle } from 'lucide-react';
+import { useDatabase } from './hooks/useDatabase';
 
 function App() {
+  const { db, isLoading, error } = useDatabase();
+
+  // Sample query to test database
+  const getSampleData = () => {
+    if (!db) return null;
+    try {
+      const result = db.exec('SELECT title, director, year FROM movies LIMIT 5');
+      if (result.length > 0) {
+        const { columns, values } = result[0];
+        return values.map(row => 
+          Object.fromEntries(columns.map((col, i) => [col, row[i]]))
+        );
+      }
+    } catch (err) {
+      console.error('Error executing sample query:', err);
+    }
+    return null;
+  };
+
+  const sampleMovies = getSampleData();
+
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-gray-50">
@@ -25,7 +47,7 @@ function App() {
               </div>
               <div className="flex items-center space-x-2 text-sm text-gray-500">
                 <BookOpen className="h-4 w-4" />
-                <span>Phase 1 Setup Complete</span>
+                <span>Phase 2: Database Integration</span>
               </div>
             </div>
           </div>
@@ -65,29 +87,47 @@ function App() {
 
             <div className="lesson-card">
               <div className="flex items-center mb-4">
-                <div className="h-3 w-3 bg-yellow-500 rounded-full mr-3"></div>
+                <div className={`h-3 w-3 rounded-full mr-3 ${
+                  error ? 'bg-red-500' : db ? 'bg-green-500' : 'bg-yellow-500'
+                }`}></div>
                 <h3 className="text-lg font-semibold text-gray-900">
-                  Next Steps
+                  Database Status
                 </h3>
               </div>
               <ul className="space-y-2 text-sm text-gray-600">
                 <li className="flex items-center">
-                  <span className="text-yellow-500 mr-2">○</span>
-                  Install dependencies (npm install)
+                  <span className="text-green-500 mr-2">✓</span>
+                  SQL.js dependencies installed
+                </li>
+                <li className="flex items-center">
+                  {isLoading ? (
+                    <span className="text-yellow-500 mr-2">⏳</span>
+                  ) : db ? (
+                    <span className="text-green-500 mr-2">✓</span>
+                  ) : (
+                    <span className="text-red-500 mr-2">✗</span>
+                  )}
+                  Database initialization
+                </li>
+                <li className="flex items-center">
+                  {sampleMovies ? (
+                    <span className="text-green-500 mr-2">✓</span>
+                  ) : (
+                    <span className="text-yellow-500 mr-2">○</span>
+                  )}
+                  Sample data loaded ({sampleMovies ? sampleMovies.length : 0} movies)
                 </li>
                 <li className="flex items-center">
                   <span className="text-yellow-500 mr-2">○</span>
-                  Initialize SQL.js database
-                </li>
-                <li className="flex items-center">
-                  <span className="text-yellow-500 mr-2">○</span>
-                  Configure Convex backend
-                </li>
-                <li className="flex items-center">
-                  <span className="text-yellow-500 mr-2">○</span>
-                  Implement lesson components
+                  Query execution ready
                 </li>
               </ul>
+              {error && (
+                <div className="mt-3 p-2 bg-red-50 border border-red-200 rounded text-xs text-red-700">
+                  <AlertCircle className="h-3 w-3 inline mr-1" />
+                  {error}
+                </div>
+              )}
             </div>
 
             <div className="lesson-card">
@@ -120,35 +160,105 @@ function App() {
             </div>
           </div>
 
-          {/* Phase 1 Complete Banner */}
-          <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
+          {/* Phase 2 Database Integration Status */}
+          <div className={`mt-8 border rounded-lg p-6 ${
+            error ? 'bg-red-50 border-red-200' : 
+            db ? 'bg-green-50 border-green-200' : 
+            'bg-yellow-50 border-yellow-200'
+          }`}>
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <Database className="h-6 w-6 text-blue-600" />
+                {isLoading ? (
+                  <LoadingSpinner size="sm" />
+                ) : error ? (
+                  <AlertCircle className="h-6 w-6 text-red-600" />
+                ) : (
+                  <Database className="h-6 w-6 text-green-600" />
+                )}
               </div>
               <div className="ml-3">
-                <h3 className="text-lg font-medium text-blue-900">
-                  Phase 1: Core Architecture Complete! 🎉
+                <h3 className={`text-lg font-medium ${
+                  error ? 'text-red-900' : 
+                  db ? 'text-green-900' : 
+                  'text-yellow-900'
+                }`}>
+                  {isLoading ? 'Initializing Database...' :
+                   error ? 'Database Error' :
+                   'Phase 2: SQL.js Database Ready! 🎉'}
                 </h3>
-                <div className="mt-2 text-sm text-blue-700">
-                  <p className="mb-2">
-                    Your SQL & Convex learning platform foundation is ready. The project includes:
-                  </p>
-                  <ul className="list-disc list-inside space-y-1 ml-4">
-                    <li>Modern React + TypeScript setup with Vite</li>
-                    <li>Tailwind CSS for styling with custom theme</li>
-                    <li>Comprehensive TypeScript interfaces</li>
-                    <li>Error boundary and loading components</li>
-                    <li>Production-ready build configuration</li>
-                    <li>GitHub Pages deployment setup</li>
-                  </ul>
-                  <p className="mt-3 font-medium">
-                    Ready to proceed to Phase 2: Database Integration
-                  </p>
+                <div className={`mt-2 text-sm ${
+                  error ? 'text-red-700' : 
+                  db ? 'text-green-700' : 
+                  'text-yellow-700'
+                }`}>
+                  {isLoading ? (
+                    <p>Loading SQL.js WebAssembly and initializing sample database...</p>
+                  ) : error ? (
+                    <p>Failed to initialize database: {error}</p>
+                  ) : (
+                    <>
+                      <p className="mb-2">
+                        SQL.js database successfully initialized with sample movie data! Features:
+                      </p>
+                      <ul className="list-disc list-inside space-y-1 ml-4">
+                        <li>In-browser SQLite database running</li>
+                        <li>Sample movie dataset with {sampleMovies?.length || 0} entries loaded</li>
+                        <li>Multiple tables with relationships</li>
+                        <li>Ready for interactive SQL queries</li>
+                        <li>Error handling and loading states</li>
+                      </ul>
+                      <p className="mt-3 font-medium">
+                        Ready to proceed to Phase 3: Interactive Lesson Components
+                      </p>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Sample Database Data Display */}
+          {sampleMovies && (
+            <div className="mt-8 lesson-card">
+              <div className="flex items-center mb-4">
+                <Database className="h-5 w-5 text-blue-600 mr-2" />
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Sample Database Query Results
+                </h3>
+              </div>
+              <div className="mb-3">
+                <code className="bg-gray-100 px-2 py-1 rounded text-sm">
+                  SELECT title, director, year FROM movies LIMIT 5
+                </code>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Title
+                      </th>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Director
+                      </th>
+                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Year
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {sampleMovies.map((movie, index) => (
+                      <tr key={index} className="hover:bg-gray-50">
+                        <td className="px-4 py-2 text-sm text-gray-900">{movie.title}</td>
+                        <td className="px-4 py-2 text-sm text-gray-600">{movie.director}</td>
+                        <td className="px-4 py-2 text-sm text-gray-600">{movie.year}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
 
           {/* Demo Components */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
