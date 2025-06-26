@@ -1,4 +1,4 @@
-import { Database } from 'sql.js';
+type Database = any; // SQL.js database type
 
 export const createSampleTables = (db: Database): void => {
   // Movies table (primary dataset)

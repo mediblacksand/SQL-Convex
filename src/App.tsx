@@ -3,7 +3,9 @@ import { BookOpen, Database, Code, AlertCircle } from 'lucide-react';
 import { useDatabase } from './hooks/useDatabase';
 
 function App() {
+  console.log('App component mounting...');
   const { db, isLoading, error } = useDatabase();
+  console.log('Database state:', { db: !!db, isLoading, error });
 
   // Sample query to test database
   const getSampleData = () => {
@@ -47,7 +49,7 @@ function App() {
               </div>
               <div className="flex items-center space-x-2 text-sm text-gray-500">
                 <BookOpen className="h-4 w-4" />
-                <span>Phase 2: Database Integration</span>
+                <span>Phase 2: Database Integration ✅</span>
               </div>
             </div>
           </div>
@@ -82,6 +84,10 @@ function App() {
                   <span className="text-green-500 mr-2">✓</span>
                   Error boundaries implemented
                 </li>
+                <li className="flex items-center">
+                  <span className="text-green-500 mr-2">✓</span>
+                  Containerized development
+                </li>
               </ul>
             </div>
 
@@ -98,6 +104,10 @@ function App() {
                 <li className="flex items-center">
                   <span className="text-green-500 mr-2">✓</span>
                   SQL.js dependencies installed
+                </li>
+                <li className="flex items-center">
+                  <span className="text-green-500 mr-2">✓</span>
+                  Local WASM files configured
                 </li>
                 <li className="flex items-center">
                   {isLoading ? (
@@ -118,7 +128,11 @@ function App() {
                   Sample data loaded ({sampleMovies ? sampleMovies.length : 0} movies)
                 </li>
                 <li className="flex items-center">
-                  <span className="text-yellow-500 mr-2">○</span>
+                  {db ? (
+                    <span className="text-green-500 mr-2">✓</span>
+                  ) : (
+                    <span className="text-yellow-500 mr-2">○</span>
+                  )}
                   Query execution ready
                 </li>
               </ul>
@@ -134,15 +148,15 @@ function App() {
               <div className="flex items-center mb-4">
                 <div className="h-3 w-3 bg-blue-500 rounded-full mr-3"></div>
                 <h3 className="text-lg font-semibold text-gray-900">
-                  Development Commands
+                  Container Environment
                 </h3>
               </div>
               <div className="space-y-3 text-sm">
                 <div>
                   <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                    npm install
+                    docker-compose up
                   </code>
-                  <p className="text-gray-600 mt-1">Install all dependencies</p>
+                  <p className="text-gray-600 mt-1">Start dev container</p>
                 </div>
                 <div>
                   <code className="bg-gray-100 px-2 py-1 rounded text-xs">
@@ -152,9 +166,9 @@ function App() {
                 </div>
                 <div>
                   <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                    npm run build
+                    localhost:5173
                   </code>
-                  <p className="text-gray-600 mt-1">Build for production</p>
+                  <p className="text-gray-600 mt-1">Access app locally</p>
                 </div>
               </div>
             </div>
@@ -184,7 +198,7 @@ function App() {
                 }`}>
                   {isLoading ? 'Initializing Database...' :
                    error ? 'Database Error' :
-                   'Phase 2: SQL.js Database Ready! 🎉'}
+                   'Phase 2 Complete: SQL.js Database Ready! 🎉'}
                 </h3>
                 <div className={`mt-2 text-sm ${
                   error ? 'text-red-700' : 
@@ -192,23 +206,24 @@ function App() {
                   'text-yellow-700'
                 }`}>
                   {isLoading ? (
-                    <p>Loading SQL.js WebAssembly and initializing sample database...</p>
+                    <p>Loading SQL.js via script tag and initializing sample database...</p>
                   ) : error ? (
                     <p>Failed to initialize database: {error}</p>
                   ) : (
                     <>
                       <p className="mb-2">
-                        SQL.js database successfully initialized with sample movie data! Features:
+                        SQL.js database successfully initialized with containerized setup! Features:
                       </p>
                       <ul className="list-disc list-inside space-y-1 ml-4">
                         <li>In-browser SQLite database running</li>
                         <li>Sample movie dataset with {sampleMovies?.length || 0} entries loaded</li>
-                        <li>Multiple tables with relationships</li>
-                        <li>Ready for interactive SQL queries</li>
-                        <li>Error handling and loading states</li>
+                        <li>Local WASM files served from public directory</li>
+                        <li>Docker container environment with port forwarding</li>
+                        <li>Script tag loading approach (bypasses ES6 import issues)</li>
+                        <li>Multiple tables with relationships ready for queries</li>
                       </ul>
                       <p className="mt-3 font-medium">
-                        Ready to proceed to Phase 3: Interactive Lesson Components
+                        🚀 Ready to proceed to Phase 3: Interactive Lesson Components
                       </p>
                     </>
                   )}
