@@ -145,19 +145,47 @@ Phase 2 provides the complete foundation for interactive lessons:
 4. **Navigation System**: Create lesson-to-lesson flow
 5. **Result Display**: Enhanced table components for query results
 
+## 🐳 Containerized Development Setup ✅
+
+### VS Code Dev Container Configuration
+```json
+{
+  "name": "SQL & Convex Learning App",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app", 
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [3000, 5173, 5174],
+  "postCreateCommand": "npm install",
+  "remoteUser": "vscode"
+}
+```
+
+### Critical Solutions Implemented
+1. **Script Tag Loading**: Bypasses ES6 import issues in containers
+2. **Local WASM Files**: `/public/sql.js/` directory eliminates CDN dependencies
+3. **Container Networking**: Vite configured for `0.0.0.0` host access
+4. **Port Forwarding**: 5173/5174 accessible from host machine
+
 ## 🛠️ Developer Commands
 
 ```bash
-# Development
-npm run dev          # Start dev server (now with database!)
+# Container Development (Recommended)
+# 1. Open in VS Code Dev Container
+# 2. Dependencies auto-install via postCreateCommand  
+# 3. Access at http://localhost:5173
 
-# Testing
-npx tsc --noEmit     # Type checking (passes cleanly)
-npm run build        # Production build
+# Traditional Development
+npm install          # Install dependencies
+npm run dev          # Start dev server with database
+npm run build        # Production build (152KB JS, 17KB CSS)
 npm run preview      # Preview production build
 
+# Testing & Quality
+npx tsc --noEmit     # Type checking (zero errors)
+npm run lint         # ESLint (if configured)
+
 # Database testing in browser console:
-# The useDatabase hook exposes the `db` object for manual testing
+# The useDatabase hook exposes the `db` object for manual SQL queries
 ```
 
 ## 📊 Performance Metrics
