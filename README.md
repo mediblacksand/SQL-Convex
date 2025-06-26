@@ -150,9 +150,58 @@ See `SQLJS_TROUBLESHOOTING.md` for detailed debugging information.
 - Database initialization feedback
 - Container environment status
 
+## 🔄 Development Workflow
+
+This project uses a **Feature Branch Workflow** for safe development and code stability.
+
+### Quick Start Workflow:
+```bash
+# Start new feature
+git checkout main
+git pull origin main
+git checkout -b feature/your-feature-name
+git push -u origin feature/your-feature-name
+
+# Daily development
+git add .
+git commit -m "feat: add new component"
+git push origin feature/your-feature-name
+
+# Complete feature
+git checkout main
+git merge feature/your-feature-name
+git push origin main
+git tag "milestone-name"
+git push origin --tags
+```
+
+### Branch Strategy:
+- `main` - Stable, production-ready code
+- `feature/phase3-*` - Phase 3 development
+- `feature/phase4-*` - Phase 4 development
+- `hotfix/*` - Emergency fixes
+
+### 🚨 Recovery Commands:
+```bash
+# Undo last commit (keep changes)
+git reset --soft HEAD~1
+
+# Go back to known good state
+git checkout main
+git reset --hard phase2-complete
+
+# Create backup before risky changes
+git tag backup-$(date +%Y%m%d)
+```
+
+📖 **See `GIT_WORKFLOW.md` for complete Git workflow documentation**
+
 ## Contributing
 
-Follow the phase-by-phase development plan outlined in `ClaudeDesign.md` for consistent implementation.
+1. **Follow the branch workflow** outlined in `GIT_WORKFLOW.md`
+2. **Phase-by-phase development** plan in `ClaudeDesign.md`
+3. **Test before merging** - run build and development server
+4. **Tag phase completions** for easy rollback points
 
 ---
 
