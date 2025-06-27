@@ -29,24 +29,7 @@ function App() {
     }
   }, [db, error]);
 
-  // Sample query to test database
-  const getSampleData = () => {
-    if (!db) return null;
-    try {
-      const result = db.exec('SELECT title, director, year FROM movies LIMIT 5');
-      if (result.length > 0) {
-        const { columns, values } = result[0];
-        return values.map((row: any) => 
-          Object.fromEntries(columns.map((col: any, i: number) => [col, row[i]]))
-        );
-      }
-    } catch (err) {
-      console.error('Error executing sample query:', err);
-    }
-    return null;
-  };
-
-  const sampleMovies = getSampleData();
+  // Sample data and debug functions removed for clean landing page
 
   // Lesson handlers
   const handleQueryExecute = async (query: string): Promise<any[]> => {
@@ -126,287 +109,134 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gray-50">
-        {/* Header */}
-        <header className="bg-white shadow-sm border-b border-gray-200">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+        {/* Navigation Header */}
+        <nav className="relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
-              <div className="flex items-center">
+              <div className="flex items-center space-x-3">
                 <div className="flex items-center space-x-2">
-                  <Database className="h-8 w-8 text-blue-600" />
-                  <Code className="h-8 w-8 text-purple-600" />
+                  <Database className="h-8 w-8 text-blue-400" />
+                  <Code className="h-8 w-8 text-purple-400" />
                 </div>
-                <div className="ml-4">
-                  <h1 className="text-2xl font-bold text-gray-900">
-                    SQL & Convex Learning Platform
+                <div>
+                  <h1 className="text-xl font-bold text-white">
+                    SQL & Convex Learn
                   </h1>
-                  <p className="text-sm text-gray-600">
-                    Interactive lessons for database querying
-                  </p>
                 </div>
               </div>
-              <div className="flex items-center space-x-2 text-sm text-gray-500">
-                <BookOpen className="h-4 w-4" />
-                <span>Phase 2: Database Integration ✅</span>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            {/* Setup Status Cards */}
-            <div className="lesson-card">
-              <div className="flex items-center mb-4">
-                <div className="h-3 w-3 bg-green-500 rounded-full mr-3"></div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Project Setup
-                </h3>
-              </div>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  React + TypeScript initialized
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Tailwind CSS configured
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Folder structure created
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Error boundaries implemented
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Containerized development
-                </li>
-              </ul>
-            </div>
-
-            <div className="lesson-card">
-              <div className="flex items-center mb-4">
-                <div className={`h-3 w-3 rounded-full mr-3 ${
-                  error ? 'bg-red-500' : db ? 'bg-green-500' : 'bg-yellow-500'
-                }`}></div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Database Status
-                </h3>
-              </div>
-              <ul className="space-y-2 text-sm text-gray-600">
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  SQL.js dependencies installed
-                </li>
-                <li className="flex items-center">
-                  <span className="text-green-500 mr-2">✓</span>
-                  Local WASM files configured
-                </li>
-                <li className="flex items-center">
-                  {isLoading ? (
-                    <span className="text-yellow-500 mr-2">⏳</span>
-                  ) : db ? (
-                    <span className="text-green-500 mr-2">✓</span>
-                  ) : (
-                    <span className="text-red-500 mr-2">✗</span>
-                  )}
-                  Database initialization
-                </li>
-                <li className="flex items-center">
-                  {sampleMovies ? (
-                    <span className="text-green-500 mr-2">✓</span>
-                  ) : (
-                    <span className="text-yellow-500 mr-2">○</span>
-                  )}
-                  Sample data loaded ({sampleMovies ? sampleMovies.length : 0} movies)
-                </li>
-                <li className="flex items-center">
-                  {db ? (
-                    <span className="text-green-500 mr-2">✓</span>
-                  ) : (
-                    <span className="text-yellow-500 mr-2">○</span>
-                  )}
-                  Query execution ready
-                </li>
-              </ul>
-              {error && (
-                <div className="mt-3 p-2 bg-red-50 border border-red-200 rounded text-xs text-red-700">
-                  <AlertCircle className="h-3 w-3 inline mr-1" />
-                  {error}
+              {db && (
+                <div className="hidden sm:flex items-center space-x-2 text-sm text-emerald-400">
+                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                  <span>Database Ready</span>
                 </div>
               )}
             </div>
-
-            <div className="lesson-card">
-              <div className="flex items-center mb-4">
-                <div className="h-3 w-3 bg-blue-500 rounded-full mr-3"></div>
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Container Environment
-                </h3>
-              </div>
-              <div className="space-y-3 text-sm">
-                <div>
-                  <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                    docker-compose up
-                  </code>
-                  <p className="text-gray-600 mt-1">Start dev container</p>
-                </div>
-                <div>
-                  <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                    npm run dev
-                  </code>
-                  <p className="text-gray-600 mt-1">Start development server</p>
-                </div>
-                <div>
-                  <code className="bg-gray-100 px-2 py-1 rounded text-xs">
-                    localhost:5173
-                  </code>
-                  <p className="text-gray-600 mt-1">Access app locally</p>
-                </div>
-              </div>
-            </div>
           </div>
+        </nav>
 
-          {/* Phase 2 Database Integration Status */}
-          <div className={`mt-8 border rounded-lg p-6 ${
-            error ? 'bg-red-50 border-red-200' : 
-            db ? 'bg-green-50 border-green-200' : 
-            'bg-yellow-50 border-yellow-200'
-          }`}>
-            <div className="flex items-center">
-              <div className="flex-shrink-0">
-                {isLoading ? (
-                  <LoadingSpinner size="sm" />
-                ) : error ? (
-                  <AlertCircle className="h-6 w-6 text-red-600" />
-                ) : (
-                  <Database className="h-6 w-6 text-green-600" />
-                )}
-              </div>
-              <div className="ml-3">
-                <h3 className={`text-lg font-medium ${
-                  error ? 'text-red-900' : 
-                  db ? 'text-green-900' : 
-                  'text-yellow-900'
-                }`}>
-                  {isLoading ? 'Initializing Database...' :
-                   error ? 'Database Error' :
-                   'Phase 2 Complete: SQL.js Database Ready! 🎉'}
-                </h3>
-                <div className={`mt-2 text-sm ${
-                  error ? 'text-red-700' : 
-                  db ? 'text-green-700' : 
-                  'text-yellow-700'
-                }`}>
-                  {isLoading ? (
-                    <p>Loading SQL.js via script tag and initializing sample database...</p>
-                  ) : error ? (
-                    <p>Failed to initialize database: {error}</p>
-                  ) : (
-                    <>
-                      <p className="mb-2">
-                        SQL.js database successfully initialized with containerized setup! Features:
-                      </p>
-                      <ul className="list-disc list-inside space-y-1 ml-4">
-                        <li>In-browser SQLite database running</li>
-                        <li>Sample movie dataset with {sampleMovies?.length || 0} entries loaded</li>
-                        <li>Local WASM files served from public directory</li>
-                        <li>Docker container environment with port forwarding</li>
-                        <li>Script tag loading approach (bypasses ES6 import issues)</li>
-                        <li>Multiple tables with relationships ready for queries</li>
-                      </ul>
-                      <p className="mt-3 font-medium">
-                        🚀 Ready to proceed to Phase 3: Interactive Lesson Components
-                      </p>
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Sample Database Data Display */}
-          {sampleMovies && (
-            <div className="mt-8 lesson-card">
-              <div className="flex items-center mb-4">
-                <Database className="h-5 w-5 text-blue-600 mr-2" />
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Sample Database Query Results
-                </h3>
-              </div>
-              <div className="mb-3">
-                <code className="bg-gray-100 px-2 py-1 rounded text-sm">
-                  SELECT title, director, year FROM movies LIMIT 5
-                </code>
-              </div>
-              <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Title
-                      </th>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Director
-                      </th>
-                      <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Year
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {sampleMovies.map((movie: any, index: number) => (
-                      <tr key={index} className="hover:bg-gray-50">
-                        <td className="px-4 py-2 text-sm text-gray-900">{movie.title}</td>
-                        <td className="px-4 py-2 text-sm text-gray-600">{movie.director}</td>
-                        <td className="px-4 py-2 text-sm text-gray-600">{movie.year}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {/* Start Lesson */}
-          {db && !showLesson && (
-            <div className="mt-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-8 text-white">
-              <div className="text-center">
-                <h2 className="text-2xl font-bold mb-4">Ready to Start Learning! 🚀</h2>
-                <p className="text-blue-100 mb-6">
-                  Your database is initialized and ready. Begin with Lesson 1 to learn SQL fundamentals.
-                </p>
-                <button
-                  onClick={() => setShowLesson(true)}
-                  className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transform hover:scale-105 transition-all duration-200"
-                >
-                  Start Lesson 1: Introduction to Databases
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Demo Components */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="lesson-card">
-              <h4 className="font-semibold text-gray-900 mb-3">Loading Component Demo</h4>
-              <LoadingSpinner message="Database initializing..." />
-            </div>
+        {/* Hero Section */}
+        <main className="relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             
-            <div className="lesson-card">
-              <h4 className="font-semibold text-gray-900 mb-3">Interactive Components Ready</h4>
-              <div className="space-y-3">
-                <div className="text-sm text-gray-600">✅ Query Editor Component</div>
-                <div className="text-sm text-gray-600">✅ Lesson Navigation System</div>
-                <div className="text-sm text-gray-600">✅ Result Validation Logic</div>
-                <div className="text-sm text-gray-600">✅ Progress Tracking</div>
+            {/* Hero Content */}
+            <div className="text-center space-y-8">
+              <div className="space-y-4">
+                <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
+                  Master <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">SQL</span> &{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Convex</span>
+                </h1>
+                <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto">
+                  Learn database querying the fast way. Interactive lessons that get you coding immediately.
+                </p>
               </div>
+
+              {/* Technology Cards */}
+              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-16">
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <Database className="h-8 w-8 text-blue-400" />
+                    <h3 className="text-2xl font-bold text-white">SQL</h3>
+                  </div>
+                  <p className="text-slate-300 text-left">
+                    <strong className="text-white">Structured Query Language</strong> - The standard language for relational databases. 
+                    Used by MySQL, PostgreSQL, SQLite, and virtually every major database system.
+                  </p>
+                  <div className="mt-4 text-sm text-blue-400">
+                    ✦ Industry standard ✦ Universal syntax ✦ Powerful queries
+                  </div>
+                </div>
+
+                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <Code className="h-8 w-8 text-purple-400" />
+                    <h3 className="text-2xl font-bold text-white">Convex</h3>
+                  </div>
+                  <p className="text-slate-300 text-left">
+                    <strong className="text-white">Modern Backend Platform</strong> - Real-time database with automatic APIs, 
+                    built-in authentication, and seamless TypeScript integration.
+                  </p>
+                  <div className="mt-4 text-sm text-purple-400">
+                    ✦ Real-time sync ✦ Type-safe ✦ Serverless scaling
+                  </div>
+                </div>
+              </div>
+
+              {/* Learning Approach */}
+              <div className="bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-2xl p-8 mt-16 border border-emerald-500/30">
+                <h3 className="text-2xl font-bold text-white mb-4">Inspired by SQLBolt</h3>
+                <p className="text-slate-300 max-w-2xl mx-auto">
+                  This webapp adapts the proven SQLBolt methodology - learn by doing, not by reading. 
+                  Each lesson is a hands-on challenge that builds real understanding through practice.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm">
+                  <span className="bg-white/10 px-4 py-2 rounded-full text-emerald-400">6 Foundation Lessons</span>
+                  <span className="bg-white/10 px-4 py-2 rounded-full text-blue-400">Interactive Coding</span>
+                  <span className="bg-white/10 px-4 py-2 rounded-full text-purple-400">Instant Feedback</span>
+                  <span className="bg-white/10 px-4 py-2 rounded-full text-pink-400">Side-by-side Comparison</span>
+                </div>
+              </div>
+
+              {/* CTA Section */}
+              {isLoading ? (
+                <div className="mt-12">
+                  <div className="flex items-center justify-center space-x-3 text-blue-400">
+                    <LoadingSpinner size="sm" />
+                    <span className="text-lg">Initializing your learning environment...</span>
+                  </div>
+                </div>
+              ) : error ? (
+                <div className="mt-12 bg-red-500/20 border border-red-500/50 rounded-xl p-6">
+                  <div className="flex items-center justify-center space-x-3 text-red-400">
+                    <AlertCircle className="h-6 w-6" />
+                    <span>Database initialization failed: {error}</span>
+                  </div>
+                </div>
+              ) : db ? (
+                <div className="mt-12">
+                  <button
+                    onClick={() => setShowLesson(true)}
+                    className="group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-12 py-4 rounded-2xl text-xl font-semibold shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300"
+                  >
+                    <span className="flex items-center space-x-3">
+                      <span>Start Learning Now</span>
+                      <BookOpen className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </button>
+                  <p className="text-slate-400 mt-4">
+                    Jump straight into Lesson 1 • No signup required • Learn immediately
+                  </p>
+                </div>
+              ) : null}
+              
             </div>
+          </div>
+
+          {/* Background Elements */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl"></div>
           </div>
         </main>
       </div>
