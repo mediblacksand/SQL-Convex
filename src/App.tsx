@@ -64,29 +64,30 @@ function App() {
   if (showLesson && currentLesson && db) {
     return (
       <ErrorBoundary>
-        <div className="min-h-screen bg-gray-50">
-          <header className="bg-white shadow-sm border-b border-gray-200">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+          <header className="bg-black/20 backdrop-blur-lg border-b border-white/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between items-center py-4">
+              <div className="flex justify-between items-center py-6">
                 <div className="flex items-center">
                   <button
                     onClick={() => setShowLesson(false)}
-                    className="mr-4 px-3 py-1 text-sm border rounded hover:bg-gray-50"
+                    className="mr-6 px-4 py-2 text-sm bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl hover:bg-white/20 text-white transition-all duration-200"
                   >
                     ← Back to Overview
                   </button>
-                  <div className="flex items-center space-x-2">
-                    <Database className="h-6 w-6 text-blue-600" />
-                    <Code className="h-6 w-6 text-purple-600" />
+                  <div className="flex items-center space-x-3">
+                    <Database className="h-6 w-6 text-blue-400" />
+                    <Code className="h-6 w-6 text-purple-400" />
                   </div>
-                  <div className="ml-3">
-                    <h1 className="text-xl font-bold text-gray-900">
-                      SQL & Convex Learning Platform
+                  <div className="ml-4">
+                    <h1 className="text-xl font-bold text-white">
+                      SQL & Convex Learn
                     </h1>
                   </div>
                 </div>
-                <div className="text-sm text-gray-500">
-                  Phase 3: Interactive Lessons
+                <div className="hidden sm:flex items-center space-x-2 text-sm text-emerald-400">
+                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                  <span>Interactive Lessons</span>
                 </div>
               </div>
             </div>
@@ -102,6 +103,13 @@ function App() {
             canNavigatePrev={currentLessonId > 1}
             canNavigateNext={currentLessonId < lessons.length}
           />
+
+          {/* Background Elements */}
+          <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl"></div>
+          </div>
         </div>
       </ErrorBoundary>
     );
