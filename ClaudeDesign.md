@@ -41,12 +41,15 @@
 - [ ] Lesson navigation and progress tracking
 - [ ] Query validation and result comparison
 - [ ] Interactive tutorials and hints system
+- [ ] User engagement analytics integration
 
-### Phase 4: Convex Integration 📋 PLANNED
-- [ ] Convex backend setup and schema definition
-- [ ] Real-time query execution with Convex
-- [ ] User progress persistence
-- [ ] Advanced lesson features
+### Phase 4: Convex Integration 📋 OPTIONAL
+**Note**: Phase 4 is optional - the app is fully functional without Convex
+- [ ] User authentication and accounts  
+- [ ] Cross-device progress synchronization
+- [ ] Social learning features (sharing, collaboration)
+- [ ] Advanced analytics and user tracking (server-side)
+- [ ] Real-time collaborative features
 
 ---
 
@@ -1042,7 +1045,198 @@ InteractiveSQL_APP/
 - ✅ Error handling and loading states
 - ✅ Sample data structure for lessons
 - ✅ Production build pipeline
+- ✅ Usage analytics framework implemented
 
 ---
 
-This design document provides a complete roadmap for building a production-ready SQL and Convex learning application. **Phase 2 is now complete** with a fully operational SQL.js database, containerized development environment, and professional user interface ready for interactive lesson development in Phase 3.
+## 📊 Usage Analytics & Deployment Strategy
+
+### **GitHub Pages Deployment Approach**
+
+**Decision**: Deploy fully functional learning platform to GitHub Pages without backend requirement.
+
+**Rationale**:
+- ✅ **Zero hosting costs** (GitHub Pages is free)
+- ✅ **Global CDN** (fast loading worldwide)
+- ✅ **Simple deployment** (git push deploys automatically)
+- ✅ **No server maintenance** required
+- ✅ **Fully functional** educational experience
+
+### **Analytics Implementation (Phase 2.5 Complete) ✅**
+
+**Goal**: Track real usage without requiring backend infrastructure.
+
+#### **Client-Side Analytics Stack**:
+- **Google Analytics**: Comprehensive user behavior tracking
+- **GitHub Insights**: Built-in repository/pages analytics
+- **localStorage Tracking**: Session and progress analytics
+- **Custom Event System**: Learning-specific metrics
+
+#### **Analytics Architecture**:
+```
+┌─────────────────────────────────────────┐
+│           GitHub Pages App              │
+│  ┌─────────────────────────────────────┐ │
+│  │     Analytics Utils                 │ │
+│  │  ┌─────────────────────────────────┐ │ │
+│  │  │   Google Analytics             │ │ │
+│  │  │   - Page views                 │ │ │
+│  │  │   - User engagement            │ │ │
+│  │  │   - Lesson completion          │ │ │
+│  │  │   - Query success rates        │ │ │
+│  │  └─────────────────────────────────┘ │ │
+│  │  ┌─────────────────────────────────┐ │ │
+│  │  │   localStorage Analytics       │ │ │
+│  │  │   - Session tracking           │ │ │
+│  │  │   - Progress persistence       │ │ │
+│  │  │   - Feature usage              │ │ │
+│  │  └─────────────────────────────────┘ │ │
+│  └─────────────────────────────────────┘ │
+└─────────────────────────────────────────┘
+```
+
+#### **Implementation Status**:
+- [x] **Analytics Utility**: `src/utils/analytics.ts` - Comprehensive tracking system
+- [x] **App Integration**: Analytics hooks in main App component
+- [x] **Google Analytics Setup**: HTML template with GA4 integration
+- [x] **Custom Events**: Lesson progression, query execution, feature usage
+- [x] **Privacy-Friendly**: Anonymous data, GDPR compliant configuration
+- [x] **Documentation**: Complete setup guide in `ANALYTICS_SETUP.md`
+
+#### **Tracked Metrics**:
+
+**User Engagement**:
+- Unique visitors and page views
+- Session duration and bounce rate
+- Geographic distribution and device types
+- User journey through lessons
+
+**Learning Analytics**:
+- Lesson start/completion rates
+- SQL query execution success/failure
+- Hint usage and difficulty indicators
+- Feature adoption and usage patterns
+
+**Technical Performance**:
+- Page load times and error rates
+- Database initialization success
+- Query execution performance
+- Mobile vs desktop usage
+
+#### **Sample Analytics Insights**:
+```javascript
+// Real metrics you'll see after deployment:
+{
+  uniqueVisitors: 1247,
+  pageViews: 4891,
+  avgSessionDuration: "8m 32s",
+  lessonCompletionRate: "50%",
+  querySuccessRate: "78%",
+  topCountries: ["US", "India", "UK", "Germany"],
+  deviceBreakdown: {desktop: "68%", mobile: "28%", tablet: "4%"}
+}
+```
+
+### **Analytics Setup Instructions**
+
+#### **Pre-Deployment Checklist**:
+1. **Get Google Analytics ID**:
+   - Create account at [analytics.google.com](https://analytics.google.com)
+   - Create property for your GitHub Pages URL
+   - Copy your `GA_MEASUREMENT_ID` (format: G-XXXXXXXXXX)
+
+2. **Update Configuration**:
+   ```bash
+   # Replace placeholder in index.html
+   sed -i 's/GA_MEASUREMENT_ID/G-YOUR-ACTUAL-ID/g' index.html
+   ```
+
+3. **Deploy and Verify**:
+   ```bash
+   npm run build
+   git add . && git commit -m "feat: configure analytics"
+   git push origin main
+   ```
+
+4. **Verify Tracking**:
+   - Visit your GitHub Pages site
+   - Check Google Analytics "Realtime" reports
+   - Should see your visit within 5 minutes
+
+#### **Post-Deployment Monitoring**:
+
+**Week 1 - Baseline Metrics**:
+- Track initial user discovery and engagement
+- Identify most popular lessons and common drop-off points
+- Monitor technical performance and error rates
+
+**Month 1 - Usage Patterns**:
+- Analyze lesson progression patterns
+- Identify optimization opportunities
+- Track feature adoption rates
+
+**Ongoing - Continuous Improvement**:
+- Use analytics to guide Phase 3 development priorities
+- Optimize lesson difficulty based on completion rates
+- Improve UI/UX based on user behavior data
+
+### **Analytics-Driven Development Strategy**
+
+#### **Phase 3 Development Priorities (Based on Analytics)**:
+1. **High Drop-off Lessons**: Improve lessons with low completion rates
+2. **Mobile Optimization**: If >30% mobile usage, prioritize responsive design
+3. **Error-Prone Queries**: Add better hints for frequently failed queries
+4. **Popular Features**: Enhance most-used functionality first
+
+#### **Success Metrics for Phase 3**:
+- **Lesson Completion Rate**: >40% (currently measurable)
+- **Query Success Rate**: >70% (currently measurable)
+- **Session Duration**: >5 minutes (indicates engagement)
+- **Return Visitors**: >20% (people coming back to learn more)
+
+### **Alternative Analytics Options**
+
+**If Google Analytics Isn't Suitable**:
+- **Plausible Analytics**: €9/month, privacy-focused, GDPR compliant
+- **Fathom Analytics**: $14/month, simple dashboard, fast loading
+- **Umami**: Open source, self-hostable on Vercel for free
+
+**Backup Tracking Methods**:
+- GitHub repository insights (built-in, free)
+- Social media mentions and shares
+- GitHub stars and forks as engagement indicators
+
+### **Privacy and Compliance**
+
+**Configuration Ensures**:
+- IP address anonymization enabled
+- No cross-site tracking
+- No personal data collection
+- GDPR-compliant setup
+- User-friendly privacy approach
+
+---
+
+## 🎯 Deployment Roadmap
+
+### **Phase 2.5: Analytics Deployment (Ready) ✅**
+- All analytics code implemented and tested
+- Documentation complete with setup instructions
+- Privacy-compliant configuration ready
+- Integration with existing app complete
+
+### **Phase 3: Interactive Learning (Planned)**
+- Analytics-driven development approach
+- Real user feedback from Phase 2.5 deployment
+- Data-informed lesson optimization
+- Feature prioritization based on usage patterns
+
+### **Phase 4: Optional Enhancement (Convex)**
+- Only if analytics show significant user adoption
+- Enhanced analytics with server-side tracking
+- User accounts and cross-device sync
+- Advanced collaborative features
+
+---
+
+This design document provides a complete roadmap for building a production-ready SQL and Convex learning application. **Phase 2 is now complete** with a fully operational SQL.js database, containerized development environment, professional user interface, and comprehensive usage analytics ready for GitHub Pages deployment and real-world user feedback.

@@ -1,11 +1,29 @@
 import { ErrorBoundary, LoadingSpinner } from './components/ui';
 import { BookOpen, Database, Code, AlertCircle } from 'lucide-react';
 import { useDatabase } from './hooks/useDatabase';
+import { useEffect } from 'react';
+import { initializeAnalytics, analytics } from './utils/analytics';
 
 function App() {
   console.log('App component mounting...');
   const { db, isLoading, error } = useDatabase();
   console.log('Database state:', { db: !!db, isLoading, error });
+
+  // Initialize analytics on app load
+  useEffect(() => {
+    initializeAnalytics();
+    analytics.featureUsed('app_loaded', 'main_application');
+  }, []);
+
+  // Track database initialization
+  useEffect(() => {
+    if (db) {
+      analytics.featureUsed('database_ready', 'sql_js_initialization');
+    }
+    if (error) {
+      analytics.databaseError(error);
+    }
+  }, [db, error]);
 
   // Sample query to test database
   const getSampleData = () => {
