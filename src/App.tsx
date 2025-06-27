@@ -244,17 +244,6 @@ function App() {
             </div>
           </div>
 
-          {/* Background Video */}
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline
-            className="absolute inset-0 w-full h-full object-cover opacity-10 -z-20"
-          >
-            <source src="/Video_Enhancement_Request_Fulfilled.mp4" type="video/mp4" />
-          </video>
-          
           {/* Background Elements */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
             <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl"></div>
