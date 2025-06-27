@@ -44,35 +44,15 @@ export const useDatabase = () => {
         
         console.log('SQL.js loaded, initializing database...');
         
-        // Initialize SQL.js with fallback WASM loading strategy
-        let SQL;
-        try {
-          SQL = await initSqlJs({
-            locateFile: (file: string) => {
-              console.log(`Loading WASM file: ${file}`);
-              // Use CDN for production, local for development
-              const isProduction = window.location.hostname.includes('github.io');
-              if (isProduction) {
-                console.log(`Using CDN for ${file}`);
-                return `https://sql.js.org/dist/${file}`;
-              } else {
-                console.log(`Using local file for ${file}`);
-                // Account for potential base path in development
-                const basePath = import.meta.env.BASE_URL || '/';
-                return `${basePath}sql.js/${file}`;
-              }
-            }
-          });
-        } catch (wasmError) {
-          console.warn('WASM loading failed, trying CDN fallback:', wasmError);
-          // Fallback: always use CDN
-          SQL = await initSqlJs({
-            locateFile: (file: string) => {
-              console.log(`Fallback: Loading ${file} from CDN`);
-              return `https://sql.js.org/dist/${file}`;
-            }
-          });
-        }
+        // Initialize SQL.js - always use CDN for reliability
+        console.log('Initializing SQL.js with CDN WASM files...');
+        const SQL = await initSqlJs({
+          locateFile: (file: string) => {
+            const cdnUrl = `https://sql.js.org/dist/${file}`;
+            console.log(`Loading WASM file from CDN: ${cdnUrl}`);
+            return cdnUrl;
+          }
+        });
         
         console.log('SQL.js initialized successfully');
         
@@ -87,7 +67,9 @@ export const useDatabase = () => {
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Database initialization failed';
         console.error('Database initialization error:', err);
-        setError(errorMessage);
+        console.error('Current URL:', window.location.href);
+        console.error('Hostname:', window.location.hostname);
+        setError(`${errorMessage} (URL: ${window.location.href})`);
       } finally {
         setIsLoading(false);
       }

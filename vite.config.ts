@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: process.env.NODE_ENV === 'production' ? '/SQL-Convex/' : '/', // Only use base path in production
+  base: '/', // Use root path for GitHub Pages
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
