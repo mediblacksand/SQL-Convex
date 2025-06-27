@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ArrowRight, BookOpen, Database } from 'lucide-react';
 import { LessonData } from '../../types/lesson';
 import { QueryEditor } from './QueryEditor';
@@ -22,6 +22,12 @@ export const LessonView: React.FC<LessonViewProps> = ({
 }) => {
   const [sqlCompleted, setSqlCompleted] = useState(false);
   const [showConvex, setShowConvex] = useState(false);
+
+  // Reset lesson state when lesson changes
+  useEffect(() => {
+    setSqlCompleted(false);
+    setShowConvex(false);
+  }, [lesson.id]);
 
   const handleSqlSuccess = () => {
     setSqlCompleted(true);

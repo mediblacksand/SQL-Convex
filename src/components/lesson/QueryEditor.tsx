@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Play, CheckCircle, XCircle, Lightbulb } from 'lucide-react';
 import { LessonData } from '../../types/lesson';
 
@@ -19,6 +19,16 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({
   const [isValid, setIsValid] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
   const [showHints, setShowHints] = useState(false);
+
+  // Clear state when lesson changes
+  useEffect(() => {
+    setQuery('');
+    setResult(null);
+    setError(null);
+    setIsValid(false);
+    setIsExecuting(false);
+    setShowHints(false);
+  }, [lesson.id]);
 
   const executeQuery = async () => {
     if (!query.trim()) {
