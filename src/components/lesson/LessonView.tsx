@@ -136,21 +136,21 @@ export const LessonView: React.FC<LessonViewProps> = ({
       </div>
 
       {/* Progress Indicator */}
-      <div className="flex items-center gap-6 p-6 bg-white/10 backdrop-blur-lg rounded-2xl border border-white/20">
+      <div className="flex items-center gap-6 p-6 bg-black/20 backdrop-blur-lg rounded-2xl border border-cyan-500/30">
         <div className="flex items-center gap-3">
-          <div className={`w-4 h-4 rounded-full ${sqlCompleted ? 'bg-emerald-400' : 'bg-slate-600'} transition-all duration-300`} />
+          <div className={`w-4 h-4 rounded-full ${sqlCompleted ? 'bg-cyan-400' : 'bg-slate-600'} transition-all duration-300`} />
           <span className="text-slate-300 font-medium">SQL Query</span>
         </div>
         <div className="flex items-center gap-3">
-          <div className={`w-4 h-4 rounded-full ${showConvex ? 'bg-purple-400' : 'bg-slate-600'} transition-all duration-300`} />
+          <div className={`w-4 h-4 rounded-full ${showConvex ? 'bg-teal-400' : 'bg-slate-600'} transition-all duration-300`} />
           <span className="text-slate-300 font-medium">Convex Equivalent</span>
         </div>
       </div>
 
       {/* SQL Section */}
-      <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8">
+      <div className="bg-black/20 backdrop-blur-lg border border-cyan-500/30 rounded-2xl p-8">
         <div className="flex items-center gap-3 mb-6">
-          <Database className="text-blue-400" size={24} />
+          <Database className="text-cyan-400" size={24} />
           <h2 className="text-2xl font-semibold text-white">SQL Query Practice</h2>
         </div>
         
@@ -163,26 +163,26 @@ export const LessonView: React.FC<LessonViewProps> = ({
 
       {/* Convex Section */}
       {showConvex && (
-        <div className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-8">
+        <div className="bg-black/20 backdrop-blur-lg border border-teal-500/30 rounded-2xl p-8">
           <div className="flex items-center gap-3 mb-6">
-            <BookOpen className="text-purple-400" size={24} />
+            <BookOpen className="text-teal-400" size={24} />
             <h2 className="text-2xl font-semibold text-white">Convex Equivalent</h2>
           </div>
           
           <div className="space-y-6">
-            <div className="bg-purple-500/20 border border-purple-400/30 rounded-xl p-6">
-              <h3 className="font-semibold text-purple-300 mb-3 flex items-center gap-2">
+            <div className="bg-teal-500/20 border border-teal-400/30 rounded-xl p-6">
+              <h3 className="font-semibold text-teal-300 mb-3 flex items-center gap-2">
                 🔄 How Convex Does It
               </h3>
               <p className="text-slate-300 mb-4 leading-relaxed">{lesson.convexSection.concept}</p>
               <div className="bg-slate-800/50 border border-white/10 rounded-lg p-4">
                 <p className="text-sm text-slate-400 mb-2">Convex Example:</p>
-                <code className="text-sm font-mono text-purple-400">{lesson.convexSection.example}</code>
+                <code className="text-sm font-mono text-teal-400">{lesson.convexSection.example}</code>
               </div>
             </div>
             
-            <div className="bg-emerald-500/20 border border-emerald-400/30 rounded-xl p-6">
-              <h3 className="font-semibold text-emerald-300 mb-3 flex items-center gap-2">
+            <div className="bg-cyan-500/20 border border-cyan-400/30 rounded-xl p-6">
+              <h3 className="font-semibold text-cyan-300 mb-3 flex items-center gap-2">
                 ✅ Lesson Complete!
               </h3>
               <p className="text-slate-300 leading-relaxed">

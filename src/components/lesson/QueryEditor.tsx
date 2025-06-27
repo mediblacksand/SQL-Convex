@@ -78,8 +78,8 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({
   return (
     <div className="space-y-6">
       {/* Lesson Objective */}
-      <div className="bg-blue-500/20 border border-blue-400/30 rounded-xl p-6">
-        <h3 className="font-semibold text-blue-300 mb-3 flex items-center gap-2">
+      <div className="bg-cyan-500/20 border border-cyan-400/30 rounded-xl p-6">
+        <h3 className="font-semibold text-cyan-300 mb-3 flex items-center gap-2">
           🎯 Your Task
         </h3>
         <p className="text-slate-300 leading-relaxed">{lesson.sqlSection.task}</p>
@@ -93,7 +93,7 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({
         <p className="text-slate-300 mb-4 leading-relaxed">{lesson.sqlSection.concept}</p>
         <div className="bg-slate-900/50 border border-white/10 rounded-lg p-4">
           <p className="text-sm text-slate-400 mb-2">Example:</p>
-          <code className="text-sm font-mono text-blue-400">{lesson.sqlSection.example}</code>
+          <code className="text-sm font-mono text-cyan-400">{lesson.sqlSection.example}</code>
         </div>
       </div>
 
@@ -119,7 +119,7 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({
             onKeyDown={handleKeyPress}
             onPaste={handlePaste}
             onContextMenu={handleContextMenu}
-            className="w-full h-36 p-4 bg-slate-900/50 border border-white/20 rounded-xl font-mono text-base text-white placeholder-slate-400 resize-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition-all duration-200"
+            className="w-full h-36 p-4 bg-slate-900/50 border border-white/20 rounded-xl font-mono text-base text-white placeholder-slate-400 resize-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition-all duration-200"
             placeholder="Type your SQL query here... (Ctrl+Enter to execute) - Copy/paste disabled for learning"
           />
         </div>
@@ -127,7 +127,7 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({
         <button
           onClick={executeQuery}
           disabled={isExecuting || !query.trim()}
-          className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
+          className="flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105"
         >
           <Play size={18} />
           {isExecuting ? 'Executing...' : 'Execute Query'}
@@ -164,7 +164,7 @@ export const QueryEditor: React.FC<QueryEditorProps> = ({
         <div className="space-y-4">
           <div className={`flex items-center gap-3 p-4 rounded-xl font-medium ${
             isValid 
-              ? 'bg-emerald-500/20 border border-emerald-400/30 text-emerald-300' 
+              ? 'bg-cyan-500/20 border border-cyan-400/30 text-cyan-300' 
               : 'bg-amber-500/20 border border-amber-400/30 text-amber-300'
           }`}>
             {isValid ? <CheckCircle size={20} /> : <XCircle size={20} />}

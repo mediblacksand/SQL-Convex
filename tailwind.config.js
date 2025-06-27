@@ -8,7 +8,8 @@ export default {
     extend: {
       fontFamily: {
         'sans': ['Inter', 'system-ui', 'sans-serif'],
-        'mono': ['Fira Code', 'Monaco', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'monospace']
+        'mono': ['Fira Code', 'Monaco', 'Cascadia Code', 'Segoe UI Mono', 'Roboto Mono', 'monospace'],
+        'brand': ['Inter', 'system-ui', 'sans-serif']
       },
       colors: {
         'code-bg': '#1e1e1e',

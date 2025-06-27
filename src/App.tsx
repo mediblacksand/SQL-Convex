@@ -64,8 +64,8 @@ function App() {
   if (showLesson && currentLesson && db) {
     return (
       <ErrorBoundary>
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-          <header className="bg-black/20 backdrop-blur-lg border-b border-white/10">
+        <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-black relative overflow-hidden">
+          <header className="bg-black/40 backdrop-blur-lg border-b border-cyan-500/20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center py-6">
                 <div className="flex items-center">
@@ -75,18 +75,21 @@ function App() {
                   >
                     ← Back to Overview
                   </button>
-                  <div className="flex items-center space-x-3">
-                    <Database className="h-6 w-6 text-blue-400" />
-                    <Code className="h-6 w-6 text-purple-400" />
-                  </div>
-                  <div className="ml-4">
-                    <h1 className="text-xl font-bold text-white">
-                      SQL & Convex Learn
-                    </h1>
+                  <div className="flex items-center space-x-4">
+                    <img src="/logo_800size.png" alt="MEDIBLACKSAND" className="h-8" />
+                    <div className="flex items-center space-x-3">
+                      <Database className="h-6 w-6 text-cyan-400" />
+                      <Code className="h-6 w-6 text-cyan-300" />
+                    </div>
+                    <div className="ml-2">
+                      <h1 className="text-xl font-bold text-white">
+                        SQL & Convex Learn
+                      </h1>
+                    </div>
                   </div>
                 </div>
-                <div className="hidden sm:flex items-center space-x-2 text-sm text-emerald-400">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                <div className="hidden sm:flex items-center space-x-2 text-sm text-cyan-400">
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
                   <span>Interactive Lessons</span>
                 </div>
               </div>
@@ -106,9 +109,9 @@ function App() {
 
           {/* Background Elements */}
           <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
-            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl"></div>
           </div>
         </div>
       </ErrorBoundary>
@@ -117,15 +120,16 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="min-h-screen bg-gradient-to-br from-black via-slate-900 to-black relative overflow-hidden">
         {/* Navigation Header */}
         <nav className="relative z-10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6">
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center space-x-2">
-                  <Database className="h-8 w-8 text-blue-400" />
-                  <Code className="h-8 w-8 text-purple-400" />
+              <div className="flex items-center space-x-4">
+                <img src="/logo_800size.png" alt="MEDIBLACKSAND" className="h-10" />
+                <div className="flex items-center space-x-3">
+                  <Database className="h-8 w-8 text-cyan-400" />
+                  <Code className="h-8 w-8 text-cyan-300" />
                 </div>
                 <div>
                   <h1 className="text-xl font-bold text-white">
@@ -134,8 +138,8 @@ function App() {
                 </div>
               </div>
               {db && (
-                <div className="hidden sm:flex items-center space-x-2 text-sm text-emerald-400">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                <div className="hidden sm:flex items-center space-x-2 text-sm text-cyan-400">
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
                   <span>Database Ready</span>
                 </div>
               )}
@@ -151,8 +155,8 @@ function App() {
             <div className="text-center space-y-8">
               <div className="space-y-4">
                 <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-                  Master <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">SQL</span> &{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Convex</span>
+                  Master <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-400">SQL</span> &{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">Convex</span>
                 </h1>
                 <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto">
                   Learn database querying the fast way. Interactive lessons that get you coding immediately.
@@ -161,54 +165,54 @@ function App() {
 
               {/* Technology Cards */}
               <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto mt-16">
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                <div className="bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-cyan-500/30">
                   <div className="flex items-center space-x-3 mb-4">
-                    <Database className="h-8 w-8 text-blue-400" />
+                    <Database className="h-8 w-8 text-cyan-400" />
                     <h3 className="text-2xl font-bold text-white">SQL</h3>
                   </div>
                   <p className="text-slate-300 text-left">
                     <strong className="text-white">Structured Query Language</strong> - The standard language for relational databases. 
                     Used by MySQL, PostgreSQL, SQLite, and virtually every major database system.
                   </p>
-                  <div className="mt-4 text-sm text-blue-400">
+                  <div className="mt-4 text-sm text-cyan-400">
                     ✦ Industry standard ✦ Universal syntax ✦ Powerful queries
                   </div>
                 </div>
 
-                <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+                <div className="bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-teal-500/30">
                   <div className="flex items-center space-x-3 mb-4">
-                    <Code className="h-8 w-8 text-purple-400" />
+                    <Code className="h-8 w-8 text-teal-400" />
                     <h3 className="text-2xl font-bold text-white">Convex</h3>
                   </div>
                   <p className="text-slate-300 text-left">
                     <strong className="text-white">Modern Backend Platform</strong> - Real-time database with automatic APIs, 
                     built-in authentication, and seamless TypeScript integration.
                   </p>
-                  <div className="mt-4 text-sm text-purple-400">
+                  <div className="mt-4 text-sm text-teal-400">
                     ✦ Real-time sync ✦ Type-safe ✦ Serverless scaling
                   </div>
                 </div>
               </div>
 
               {/* Learning Approach */}
-              <div className="bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-2xl p-8 mt-16 border border-emerald-500/30">
-                <h3 className="text-2xl font-bold text-white mb-4">Inspired by SQLBolt</h3>
+              <div className="bg-gradient-to-r from-cyan-500/20 to-teal-500/20 rounded-2xl p-8 mt-16 border border-cyan-500/30">
+                <h3 className="text-2xl font-bold text-white mb-4">Powered by MEDIBLACKSAND</h3>
                 <p className="text-slate-300 max-w-2xl mx-auto">
-                  This webapp adapts the proven SQLBolt methodology - learn by doing, not by reading. 
+                  Professional SQL training platform adapting the proven SQLBolt methodology - learn by doing, not by reading. 
                   Each lesson is a hands-on challenge that builds real understanding through practice.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm">
-                  <span className="bg-white/10 px-4 py-2 rounded-full text-emerald-400">6 Foundation Lessons</span>
-                  <span className="bg-white/10 px-4 py-2 rounded-full text-blue-400">Interactive Coding</span>
-                  <span className="bg-white/10 px-4 py-2 rounded-full text-purple-400">Instant Feedback</span>
-                  <span className="bg-white/10 px-4 py-2 rounded-full text-pink-400">Side-by-side Comparison</span>
+                  <span className="bg-black/20 px-4 py-2 rounded-full text-cyan-400">6 Foundation Lessons</span>
+                  <span className="bg-black/20 px-4 py-2 rounded-full text-teal-400">Interactive Coding</span>
+                  <span className="bg-black/20 px-4 py-2 rounded-full text-cyan-300">Instant Feedback</span>
+                  <span className="bg-black/20 px-4 py-2 rounded-full text-teal-300">Professional Training</span>
                 </div>
               </div>
 
               {/* CTA Section */}
               {isLoading ? (
                 <div className="mt-12">
-                  <div className="flex items-center justify-center space-x-3 text-blue-400">
+                  <div className="flex items-center justify-center space-x-3 text-cyan-400">
                     <LoadingSpinner size="sm" />
                     <span className="text-lg">Initializing your learning environment...</span>
                   </div>
@@ -224,7 +228,7 @@ function App() {
                 <div className="mt-12">
                   <button
                     onClick={() => setShowLesson(true)}
-                    className="group bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-12 py-4 rounded-2xl text-xl font-semibold shadow-2xl hover:shadow-blue-500/25 transform hover:scale-105 transition-all duration-300"
+                    className="group bg-gradient-to-r from-cyan-500 to-teal-600 hover:from-cyan-600 hover:to-teal-700 text-white px-12 py-4 rounded-2xl text-xl font-semibold shadow-2xl hover:shadow-cyan-500/25 transform hover:scale-105 transition-all duration-300"
                   >
                     <span className="flex items-center space-x-3">
                       <span>Start Learning Now</span>
@@ -240,11 +244,22 @@ function App() {
             </div>
           </div>
 
+          {/* Background Video */}
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-10 -z-20"
+          >
+            <source src="/Video_Enhancement_Request_Fulfilled.mp4" type="video/mp4" />
+          </video>
+          
           {/* Background Elements */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl"></div>
+          <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+            <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl"></div>
+            <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl"></div>
           </div>
         </main>
       </div>
