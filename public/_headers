@@ -1,0 +1,9 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+
+/sql.js/*.wasm
+  Content-Type: application/wasm
+
+/*.wasm
+  Content-Type: application/wasm

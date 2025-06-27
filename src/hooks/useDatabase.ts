@@ -44,13 +44,35 @@ export const useDatabase = () => {
         
         console.log('SQL.js loaded, initializing database...');
         
-        // Initialize SQL.js with local WASM files
-        const SQL = await initSqlJs({
-          locateFile: (file: string) => {
-            console.log(`Loading local WASM file: ${file}`);
-            return `/sql.js/${file}`;
-          }
-        });
+        // Initialize SQL.js with fallback WASM loading strategy
+        let SQL;
+        try {
+          SQL = await initSqlJs({
+            locateFile: (file: string) => {
+              console.log(`Loading WASM file: ${file}`);
+              // Use CDN for production, local for development
+              const isProduction = window.location.hostname.includes('github.io');
+              if (isProduction) {
+                console.log(`Using CDN for ${file}`);
+                return `https://sql.js.org/dist/${file}`;
+              } else {
+                console.log(`Using local file for ${file}`);
+                // Account for potential base path in development
+                const basePath = import.meta.env.BASE_URL || '/';
+                return `${basePath}sql.js/${file}`;
+              }
+            }
+          });
+        } catch (wasmError) {
+          console.warn('WASM loading failed, trying CDN fallback:', wasmError);
+          // Fallback: always use CDN
+          SQL = await initSqlJs({
+            locateFile: (file: string) => {
+              console.log(`Fallback: Loading ${file} from CDN`);
+              return `https://sql.js.org/dist/${file}`;
+            }
+          });
+        }
         
         console.log('SQL.js initialized successfully');
         
