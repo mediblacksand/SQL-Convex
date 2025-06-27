@@ -69,6 +69,12 @@ function App() {
     }
   };
 
+  const handleLessonSelect = (lessonId: number) => {
+    if (lessonId >= 1 && lessonId <= lessons.length) {
+      setCurrentLessonId(lessonId);
+    }
+  };
+
   const currentLesson = lessons.find(lesson => lesson.id === currentLessonId);
 
   // Show lesson view if lesson is started and database is ready
@@ -105,9 +111,11 @@ function App() {
           
           <LessonView
             lesson={currentLesson}
+            allLessons={lessons}
             onQueryExecute={handleQueryExecute}
             onLessonComplete={handleLessonComplete}
             onNavigate={handleLessonNavigate}
+            onLessonSelect={handleLessonSelect}
             canNavigatePrev={currentLessonId > 1}
             canNavigateNext={currentLessonId < lessons.length}
           />
