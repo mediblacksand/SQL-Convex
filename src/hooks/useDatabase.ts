@@ -44,10 +44,11 @@ export const useDatabase = () => {
         
         console.log('SQL.js loaded, initializing database...');
         
-        // Initialize SQL.js - always use CDN for reliability
-        console.log('Initializing SQL.js with CDN WASM files...');
+        // Initialize SQL.js with proper WASM loading
+        console.log('Initializing SQL.js with WASM files...');
         const SQL = await initSqlJs({
           locateFile: (file: string) => {
+            // Use CDN for reliable loading on GitHub Pages
             const cdnUrl = `https://sql.js.org/dist/${file}`;
             console.log(`Loading WASM file from CDN: ${cdnUrl}`);
             return cdnUrl;

@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/', // Use root path for GitHub Pages
+  base: process.env.NODE_ENV === 'production' ? '/SQL-Convex/' : '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
@@ -13,6 +13,12 @@ export default defineConfig({
       external: [],
       output: {
         manualChunks: undefined,
+        assetFileNames: (assetInfo) => {
+          if (/\.(wasm)$/.test(assetInfo.name)) {
+            return `assets/[name].[ext]`;
+          }
+          return `assets/[name]-[hash].[ext]`;
+        },
       }
     }
   },
